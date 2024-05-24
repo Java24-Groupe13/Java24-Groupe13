@@ -29,11 +29,6 @@ public class CheckoutViewController {
     @FXML
     private Button checkoutbtn;
 
-    @FXML
-    private Button resetbtn;
-
-    @FXML
-    private Button backButton;
 
     @FXML
     private Label ticketPriceLabel;
@@ -44,8 +39,6 @@ public class CheckoutViewController {
     private double childPrice = 5.00;
     private double seniorPrice = 7.50;
 
-
-    private PaymentMethod paymentMethod;
 
     @FXML
     private ComboBox<String> paymentMethodComboBox;
@@ -79,15 +72,6 @@ public class CheckoutViewController {
 
     }
 
-    /**
-     * Sets the payment method to be used for the transaction.
-     *
-     * @param paymentMethod The payment method to be set.
-     */
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
 
     private void openBancontactPage(Double prix) {
         if (listener != null) {
@@ -105,6 +89,7 @@ public class CheckoutViewController {
     public interface NavListener {
         void sendToTerminal(Double prix);
     }
+
 
     @FXML
     private void handleResetButton(ActionEvent event) {

@@ -12,14 +12,6 @@ import javafx.stage.Stage;
 
 public class ScheduleViewController {
 
-    @FXML
-    private AnchorPane SCREEN1;
-
-    @FXML
-    private AnchorPane SCREEN2;
-
-    @FXML
-    private AnchorPane SCREEN3;
 
     @FXML
     private ToggleButton room1Button;
@@ -33,38 +25,14 @@ public class ScheduleViewController {
     @FXML
     private Label moviesynopsis;
 
-    @FXML
-    private AnchorPane mainmoviespane;
 
     @FXML
     private Label movieduration;
 
-    @FXML
-    private ImageView movieimage;
 
-    @FXML
-    private Label movierating;
-
-    @FXML
-    private Label movierepeats;
-
-    @FXML
-    private Label movieticketsold;
 
     @FXML
     private Label movietitle;
-
-    @FXML
-    private ToggleButton otherschedulebtn;
-
-    @FXML
-    private AnchorPane tablepane;
-
-    @FXML
-    private AnchorPane toppane;
-
-    @FXML
-    private Film currentFilm; // Attribut pour stocker le film actuellement affiché
 
     private NavListener listener;
 
@@ -172,9 +140,6 @@ public class ScheduleViewController {
      *
      *  L'événement de clic sur le bouton "View Movie Details".
      */
-
-    @FXML
-    // Assurez-vous que ce Label est défini avec @FXML si vous utilisez FXML
 
 
 

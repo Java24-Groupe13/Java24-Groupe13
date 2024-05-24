@@ -20,7 +20,6 @@ import java.util.List;
 
 public class FilmController {
     private static FilmViewController filmView;
-    private Stage filmStage;
     private static Socket socket;
     private static ObjectOutputStream out;
     private static ObjectInputStream in;
@@ -33,7 +32,6 @@ public class FilmController {
     public void start(Stage primaryStage) throws IOException, URISyntaxException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/helha/java/q2/cinephile/FilmView.fxml"));
         Parent root = loader.load();
-        filmStage = primaryStage;
         filmView = loader.getController();
         filmView.setListener(new FilmViewController.goToScheduleListener() {
             @Override

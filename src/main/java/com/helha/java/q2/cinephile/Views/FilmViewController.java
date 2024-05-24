@@ -39,7 +39,6 @@ public class FilmViewController implements Initializable {
     public FlowPane flowPane;
     public Menu menu;
 
-    private FilmDb filmDb;
     private FilmController filmController;
 
     private goToScheduleListener listener;
@@ -124,6 +123,7 @@ public class FilmViewController implements Initializable {
         }
 
     }
+
     public void setListener (goToScheduleListener listener){
         this.listener = listener;
     }
@@ -131,6 +131,8 @@ public class FilmViewController implements Initializable {
     public interface goToScheduleListener{
         void openSchedulePage(Film film) throws IOException, URISyntaxException;
     }
+
+
 
     private void flipImage(ImageView fromImageView, ImageView toPane, Text texte, Button button) {
         // Transition de mise à l'échelle pour l'image sortante

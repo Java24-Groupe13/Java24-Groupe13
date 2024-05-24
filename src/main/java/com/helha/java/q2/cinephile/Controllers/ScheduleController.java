@@ -13,19 +13,17 @@ import java.net.URISyntaxException;
 
 public class ScheduleController {
     private ScheduleViewController scheduleView;
-    private FilmDb filmDb;
-    private Stage filmStage;
 
     public ScheduleController() {
 
     }
+
     public void start(Stage primaryStage, Film film) throws IOException, URISyntaxException {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/helha/java/q2/cinephile/SchedulePage.fxml"));
             Parent root = loader.load();
             // Créez une nouvelle scène avec la racine chargée
             Scene newScene = new Scene(root);
-
             // Créez un nouveau stage pour la nouvelle scène
             Stage newStage = new Stage();
             newStage.setScene(newScene);

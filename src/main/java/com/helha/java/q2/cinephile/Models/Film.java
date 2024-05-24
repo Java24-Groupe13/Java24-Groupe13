@@ -96,53 +96,10 @@ public class Film implements Serializable {
         return tiquetsRestantsSalle3;
     }
 
-    // Setters
-    public void setTitre(String titre) {
-        this.titre = titre;
-    }
 
-    public void setTexte(String texte) {
-        this.texte = texte;
-    }
-
-    public void setDuree(String duree) {
-        this.duree = duree;
-    }
-
-    public void setBandeAnnonce(String bandeAnnonce) {
-        this.bandeAnnonce = bandeAnnonce;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public void setDateSortie(String dateSortie) {
-        this.dateSortie = dateSortie;
-    }
-
-    public void setJourDisponible(String jourDisponible) {
-        this.jourDisponible = jourDisponible;
-    }
-
-    public void setHeureDisponible(String heureDisponible) {
-        this.heureDisponible = heureDisponible;
-    }
-
-    public void setDebut(String debut) {
-        this.debut = debut;
-    }
-
-    public void setFin(String fin) {
-        this.fin = fin;
-    }
 
     public void setTiquetsRestantsSalle1(int tiquetsRestantsSalle1) {
         this.tiquetsRestantsSalle1 = tiquetsRestantsSalle1;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setTiquetsRestantsSalle2(int tiquetsRestantsSalle2) {

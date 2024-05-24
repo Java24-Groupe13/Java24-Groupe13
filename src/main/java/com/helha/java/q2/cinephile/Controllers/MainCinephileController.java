@@ -9,7 +9,7 @@ import java.net.URISyntaxException;
 /**
  * Classe principale de l'application Cinephile.
  */
-public class Main extends Application {
+public class MainCinephileController extends Application {
 
     /**
      * Méthode principale appelée au démarrage de l'application.

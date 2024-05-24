@@ -53,39 +53,6 @@ public class TiquetDb {
         return tiquets;
     }
 
-    /**
-     * Récupère un tiquet par son identifiant à partir de la base de données.
-     *
-     * @param id L'identifiant du tiquet à récupérer.
-     * @return Le tiquet correspondant à l'identifiant donné, ou null s'il n'existe pas.
-     */
-    public Tiquet getTiquetById(int id) {
-        Tiquet tiquet = null;
-        String query = "SELECT * FROM Tiquets WHERE Id = ?";
-
-        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setInt(1, id);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    tiquet = new Tiquet();
-                    tiquet.setFilmId(rs.getInt("FilmId"));
-                    tiquet.setId(rs.getInt("Id"));
-                    tiquet.setNombreDeTiquet(rs.getInt("NombreDeTiquet"));
-                    tiquet.setSalle(rs.getInt("Salle"));
-                    tiquet.setHeure(rs.getString("Heure"));
-                    tiquet.setPrix(rs.getString("Prix"));
-                    tiquet.setNombreDeTiquetEnfant(rs.getInt("NombreDeTiquetEnfant"));
-                    tiquet.setNombreDeTiquetSenior(rs.getInt("NombreDeTiquetSenior"));
-                    tiquet.setNombreDeTiquetAdulte(rs.getInt("NombreDeTiquetAdulte"));
-                    tiquet.setNomFilm(rs.getString("NomFilm"));
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return tiquet;
-    }
     public void insertTiquet(Tiquet tiquet) {
         String query = "INSERT INTO Tiquets (FilmId, NombreDeTiquet, Salle, Heure, Prix, NombreDeTiquetEnfant, NombreDeTiquetSenior, NombreDeTiquetAdulte, NomFilm) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 

@@ -21,11 +21,8 @@ public class CheckoutController {
         try {
             FXMLLoader loader = new FXMLLoader(CheckoutController.class.getResource("/com/helha/java/q2/cinephile/checkout.fxml"));
             Parent root = loader.load();
-
-
             // Obtient la scène actuelle
             Scene newScene = new Scene(root);
-
             // Créez un nouveau stage pour la nouvelle scène
             Stage checkoutPageStage = new Stage();
             checkoutPageStage.setScene(newScene);
@@ -41,6 +38,8 @@ public class CheckoutController {
             e.printStackTrace();
         }
     }
+
+
 
     private static void startClient(Double prix, Film film, String room, String hour, Stage checkoutPageStage, Stage shedulePageStage) {
         String serverAddress = "127.0.0.1"; // Adresse IP du serveur (localhost)

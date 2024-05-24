@@ -146,7 +146,7 @@ public class CentralServer {
                 System.out.println("Invalid response format: " + command);
                 return;
             }
-            String response = parts[1];  //
+            String response = parts[1];
             System.out.println(response);
             double finalAmount = Double.parseDouble(parts[2]);  // Le montant final
             String code = parts[3];
@@ -164,8 +164,6 @@ public class CentralServer {
                 updateTiquetsRestants(FilmId,room,NombreTiquets);
             }
 
-
-
             // Envoyer la réponse à tous les clients sauf à celui-ci
             for (ClientHandler client : clients) {
                 if (client != this) {
@@ -175,6 +173,8 @@ public class CentralServer {
                 }
             }
         }
+
+
         public static String readPromoCode() throws IOException {
             String filePath = "src/main/resources/com/helha/java/q2/cinephile/promotionCode.txt";
             StringBuilder content = new StringBuilder();
@@ -186,6 +186,8 @@ public class CentralServer {
             }
             return content.toString();
         }
+
+
 
         public static boolean comparePromoCode(String codeEntered) {
             try {
@@ -205,6 +207,8 @@ public class CentralServer {
             return false;
         }
 
+
+
         private static void createNewTiquet(int filmId, int nombreDeTiquet, int salle, String heure, double prix, int nombreDeTiquetEnfant, int nombreDeTiquetSenior, int nombreDeTiquetAdulte, String nomFilm) {
             TiquetDb tiquetDb = new TiquetDb();
             Tiquet newTiquet = new Tiquet();
@@ -221,6 +225,8 @@ public class CentralServer {
             tiquetDb.insertTiquet(newTiquet);
             System.out.println("Nouveau tiquet créé avec succès.");
         }
+
+
 
         private static void updateTiquetsRestants(int filmId, int salle, int nombreDeTiquetAchetes) {
             FilmDb filmDb = new FilmDb();
