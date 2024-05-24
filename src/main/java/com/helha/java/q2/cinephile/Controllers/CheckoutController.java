@@ -70,11 +70,11 @@ public class CheckoutController {
             System.out.println("Client démarré, connecté au serveur " + serverAddress + ":" + serverPort);
 
             // Envoi du montant au serveur
-            int nombreDeTiquet = checkoutViewController.getTotalTicketsChosen();
-            int nombreDeTiquetEnfant= checkoutViewController.getChildTiquet();
-            int nombreDeTiquetAdulte= checkoutViewController.getAdultTiquet();
-            int nombreDeTiquetSenior= checkoutViewController.getSeniorTiquet();
-            out.writeObject("SEND_PAYMENT " + prix + " "+ nombreDeTiquet+" "+film.getId()+" "+nombreDeTiquetEnfant+" "+nombreDeTiquetAdulte+" "+nombreDeTiquetSenior+" "+room+" "+hour);
+            int numberOfTickets = checkoutViewController.getTotalTicketsChosen();
+            int numberOfChildTickets= checkoutViewController.getChildTicket();
+            int numberOfAdultTickets= checkoutViewController.getAdultTicket();
+            int numberOfSeniorTickets= checkoutViewController.getSeniorTicket();
+            out.writeObject("SEND_PAYMENT " + prix + " "+ numberOfTickets+" "+film.getId()+" "+numberOfChildTickets+" "+numberOfAdultTickets+" "+numberOfSeniorTickets+" "+room+" "+hour);
             out.flush();
             System.out.println("Montant " + prix + " envoyé au serveur.");
 
@@ -91,9 +91,9 @@ public class CheckoutController {
                         System.out.println("le client a accepté la commande " + finalAmount);
                         checkoutViewController.updateTotalPrice(finalAmount);
                         System.out.println("Montant final restant: " + finalAmount);
-                        System.out.println("Nombre de tiquet: " + nombreDeTiquet);
+                        System.out.println("Nombre de tiquet: " + numberOfTickets);
                         FilmController.connectToServer();
-                        FilmController.loadTiquets();
+                        FilmController.loadTickets();
                         FilmController.connectToServer();
                         FilmController.loadFilms();
                         System.out.println("rechargement historique");

@@ -72,7 +72,7 @@ public class FilmController {
         primaryStage.show();
         connectToServer();
         loadFilms();
-        loadTiquets();
+        loadTickets();
     }
 
     /**
@@ -108,13 +108,13 @@ public class FilmController {
     /**
      * Méthode pour charger les tickets depuis le serveur.
      */
-    public static void loadTiquets() {
+    public static void loadTickets() {
         try {
             out.writeObject("GET_TIQUETS");
             out.flush();
             List<Tickets> tiquets = null;
             tiquets = (List<Tickets>) in.readObject();
-            filmView.displayTiquets(tiquets);
+            filmView.displayTickets(tiquets);
             System.out.println(tiquets.size());
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -128,7 +128,7 @@ public class FilmController {
             List<Tickets> tiquets = null;
 
             tiquets = (List<Tickets>) in.readObject();
-            filmView.displayTiquets(tiquets);
+            filmView.displayTickets(tiquets);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

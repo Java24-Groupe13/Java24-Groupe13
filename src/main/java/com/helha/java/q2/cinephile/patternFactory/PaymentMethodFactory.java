@@ -1,14 +1,16 @@
 package com.helha.java.q2.cinephile.patternFactory;
+
 /**
- * Factory class to create instances of PaymentMethod.
+ * Classe abstraite PaymentMethodFactory qui crée des instances de PaymentMethod.
  */
 public abstract class PaymentMethodFactory {
+
     /**
-     * Creates a payment method instance based on the provided type.
+     * Crée une instance de PaymentMethod en fonction du type spécifié.
      *
-     * @param type The type of payment method to create.
-     * @return An instance of PaymentMethod corresponding to the given type.
-     * @throws IllegalArgumentException if the provided type is invalid.
+     * @param type Le type de méthode de paiement. Peut être "Bancontact" ou "CreditCard".
+     * @return Une instance de PaymentMethod correspondant au type spécifié.
+     * @throws IllegalArgumentException Si le type spécifié n'est pas "Bancontact" ou "CreditCard".
      */
     public static PaymentMethod createPaymentMethod(String type) {
         if (type.equals("Bancontact")) {

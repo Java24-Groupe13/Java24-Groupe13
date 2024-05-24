@@ -7,6 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 
+/**
+ * Classe ScheduleViewController qui gère l'affichage des horaires des films.
+ */
 public class ScheduleViewController {
 
     @FXML
@@ -57,6 +60,11 @@ public class ScheduleViewController {
         room3Button.setOnAction(this::handleRoomButtonAction);
     }
 
+    /**
+     * Gère l'action du bouton de la salle.
+     *
+     * @param event L'événement d'action.
+     */
     private void handleRoomButtonAction(ActionEvent event) {
         ToggleButton selectedButton = (ToggleButton) event.getSource();
 
@@ -107,20 +115,38 @@ public class ScheduleViewController {
         );
     }
 
+    /**
+     * Ouvre la page de paiement.
+     */
     private void openCheckoutPage() {
         if (listener != null) {
             listener.openCheckoutPage(selectedRoom, selectedHour);
         }
     }
 
+    /**
+     * Définit le listener pour la navigation.
+     *
+     * @param listener Le listener à définir.
+     */
     public void setListener(NavListener listener) {
         this.listener = listener;
     }
 
+    /**
+     * Interface pour le listener de navigation.
+     */
     public interface NavListener {
         void openCheckoutPage(String selectedRoom, String selectedHour);
     }
 
+    /**
+     * Affiche le nombre de billets restants pour chaque salle.
+     *
+     * @param ticketsRoom1Count Le nombre de billets restants pour la salle 1.
+     * @param ticketsRoom2Count Le nombre de billets restants pour la salle 2.
+     * @param ticketsRoom3Count Le nombre de billets restants pour la salle 3.
+     */
     private void afficherTicketsRestants(int ticketsRoom1Count, int ticketsRoom2Count, int ticketsRoom3Count) {
         ticketsRoom1.setText("Tickets restants : " + ticketsRoom1Count);
         ticketsRoom2.setText("Tickets restants : " + ticketsRoom2Count);

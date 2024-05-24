@@ -4,11 +4,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe TicketsDb qui gère la base de données des tickets.
+ */
 public class TicketsDb {
     private Connection conn;
 
     /**
-     * Constructeur de la classe TiquetDAO. Initialise la connexion à la base de données.
+     * Constructeur de la classe TiquetDb. Initialise la connexion à la base de données.
      */
     public TicketsDb() {
         try {
@@ -19,11 +22,11 @@ public class TicketsDb {
     }
 
     /**
-     * Récupère tous les tiquets à partir de la base de données.
+     * Récupère tous les tickets à partir de la base de données.
      *
-     * @return Une liste contenant tous les tiquets récupérés de la base de données.
+     * @return Une liste contenant tous les tickets récupérés de la base de données.
      */
-    public List<Tickets> getAllTiquets() {
+    public List<Tickets> getAllTickets() {
         List<Tickets> tickets = new ArrayList<>();
         String query = "SELECT * FROM Tiquets";
 
@@ -53,19 +56,24 @@ public class TicketsDb {
         return tickets;
     }
 
-    public void insertTiquet(Tickets tiquet) {
+    /**
+     * Insère un nouveau ticket dans la base de données.
+     *
+     * @param tickets Le ticket à insérer.
+     */
+    public void insertTickets(Tickets tickets) {
         String query = "INSERT INTO Tiquets (FilmId, NombreDeTiquet, Salle, Heure, Prix, NombreDeTiquetEnfant, NombreDeTiquetSenior, NombreDeTiquetAdulte, NomFilm) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setInt(1, tiquet.getFilmId());
-            pstmt.setInt(2, tiquet.getNumberOfTickets());
-            pstmt.setInt(3, tiquet.getRoom());
-            pstmt.setString(4, tiquet.getHour());
-            pstmt.setString(5, tiquet.getPrice());
-            pstmt.setInt(6, tiquet.getNumberOfChildrenTickets());
-            pstmt.setInt(7, tiquet.getNumberOfSeniorTickets());
-            pstmt.setInt(8, tiquet.getNumberOfAdultTickets());
-            pstmt.setString(9, tiquet.getFilmName());
+            pstmt.setInt(1, tickets.getFilmId());
+            pstmt.setInt(2, tickets.getNumberOfTickets());
+            pstmt.setInt(3, tickets.getRoom());
+            pstmt.setString(4, tickets.getHour());
+            pstmt.setString(5, tickets.getPrice());
+            pstmt.setInt(6, tickets.getNumberOfChildrenTickets());
+            pstmt.setInt(7, tickets.getNumberOfSeniorTickets());
+            pstmt.setInt(8, tickets.getNumberOfAdultTickets());
+            pstmt.setString(9, tickets.getFilmName());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

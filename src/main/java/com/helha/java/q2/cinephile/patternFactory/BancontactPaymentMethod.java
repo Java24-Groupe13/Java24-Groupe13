@@ -5,23 +5,28 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * Concrete implementation of the Bancontact payment method.
+ * Classe BancontactPaymentMethod qui implémente l'interface PaymentMethod.
+ * Cette classe représente une méthode de paiement par Bancontact.
  */
 public class BancontactPaymentMethod implements PaymentMethod {
+
     /**
-     * {@inheritDoc}
+     * Méthode pour effectuer un paiement.
+     *
+     * @param amount Le montant à payer.
      */
     @Override
     public void pay(double amount) {
-        // Implement payment logic here
-        //System.out.println("Paid " + amount + " using Bancontact");
 
-        // Logique de paiement par Bancontact
         String message = "Paid " + amount + "€ using Bancontact";
         writeToFile(message);
     }
 
-
+    /**
+     * Méthode privée pour écrire un message dans un fichier.
+     *
+     * @param message Le message à écrire.
+     */
     private void writeToFile(String message) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("transactions.txt", true))) {
             writer.write(message);

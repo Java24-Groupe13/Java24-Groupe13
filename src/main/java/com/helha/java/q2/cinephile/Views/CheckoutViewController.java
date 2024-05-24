@@ -1,17 +1,12 @@
 package com.helha.java.q2.cinephile.Views;
 
-import com.helha.java.q2.cinephile.patternFactory.PaymentMethod;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
-import java.io.IOException;
-
-
+/**
+ * Classe CheckoutViewController qui gère l'interface utilisateur pour le processus de paiement.
+ */
 public class CheckoutViewController {
 
     @FXML
@@ -70,7 +65,11 @@ public class CheckoutViewController {
 
     }
 
-
+    /**
+     * Ouvre la page de paiement Bancontact.
+     *
+     * @param prix Le prix à payer.
+     */
     private void openBancontactPage(Double prix) {
         if (listener != null) {
             listener.sendToTerminal(prix);
@@ -79,16 +78,27 @@ public class CheckoutViewController {
     }
 
 
-
+    /**
+     * Définit le listener pour la navigation.
+     *
+     * @param listener Le listener à définir.
+     */
     public void setListener(NavListener listener) {
         this.listener = listener;
     }
 
+    /**
+     * Interface pour le listener de navigation.
+     */
     public interface NavListener {
         void sendToTerminal(Double prix);
     }
 
-
+    /**
+     * Gère l'action du bouton de réinitialisation.
+     *
+     * @param event L'événement d'action.
+     */
     @FXML
     private void handleResetButton(ActionEvent event) {
         adultTextField.clear();
@@ -96,7 +106,9 @@ public class CheckoutViewController {
         seniorTextField.clear();
     }
 
-
+    /**
+     * Décrémente le nombre de billets pour adultes.
+     */
     @FXML
     private void decrementAdult() {
         int count = parseTextFieldValue(adultTextField.getText());
@@ -106,7 +118,9 @@ public class CheckoutViewController {
         }
     }
 
-
+    /**
+     * Incrémente le nombre de billets pour adultes.
+     */
     @FXML
     private void incrementAdult() {
         int count = parseTextFieldValue(adultTextField.getText());
@@ -114,7 +128,9 @@ public class CheckoutViewController {
         updateTotalPrice();
     }
 
-
+    /**
+     * Décrémente le nombre de billets pour enfants.
+     */
     @FXML
     private void decrementChild() {
         int count = parseTextFieldValue(childTextField.getText());
@@ -124,7 +140,9 @@ public class CheckoutViewController {
         }
     }
 
-
+    /**
+     * Incrémente le nombre de billets pour enfants.
+     */
     @FXML
     private void incrementChild() {
         int count = parseTextFieldValue(childTextField.getText());
@@ -132,7 +150,9 @@ public class CheckoutViewController {
         updateTotalPrice();
     }
 
-
+    /**
+     * Décrémente le nombre de billets pour seniors.
+     */
     @FXML
     private void decrementSenior() {
         int count = parseTextFieldValue(seniorTextField.getText());
@@ -142,7 +162,9 @@ public class CheckoutViewController {
         }
     }
 
-
+    /**
+     * Incrémente le nombre de billets pour seniors.
+     */
     @FXML
     private void incrementSenior() {
         int count = parseTextFieldValue(seniorTextField.getText());
@@ -150,10 +172,12 @@ public class CheckoutViewController {
         updateTotalPrice();
     }
 
-
+    /**
+     * Récupère le nombre total de billets choisis.
+     *
+     * @return Le nombre total de billets choisis.
+     */
     @FXML
-
-
     public int getTotalTicketsChosen() {
         int adultCount = parseTextFieldValue(adultTextField.getText());
         int childCount = parseTextFieldValue(childTextField.getText());
@@ -162,17 +186,34 @@ public class CheckoutViewController {
 
         return adultCount + childCount + seniorCount ;
     }
-    public int getChildTiquet(){
+    /**
+     * Récupère le nombre de billets pour enfants.
+     *
+     * @return Le nombre de billets pour enfants.
+     */
+    public int getChildTicket(){
         return parseTextFieldValue(childTextField.getText());
     }
-    public int getSeniorTiquet(){
+    /**
+     * Récupère le nombre de billets pour seniors.
+     *
+     * @return Le nombre de billets pour seniors.
+     */
+    public int getSeniorTicket(){
         return parseTextFieldValue(seniorTextField.getText());
     }
-    public int getAdultTiquet(){
+    /**
+     * Récupère le nombre de billets pour adultes.
+     *
+     * @return Le nombre de billets pour adultes.
+     */
+    public int getAdultTicket(){
         return parseTextFieldValue(adultTextField.getText());
     }
 
-
+    /**
+     * Met à jour le prix total.
+     */
     private void updateTotalPrice() {
         int adultCount = parseTextFieldValue(adultTextField.getText());
         int childCount = parseTextFieldValue(childTextField.getText());
@@ -183,11 +224,21 @@ public class CheckoutViewController {
         ticketPriceLabel.setText(String.valueOf(totalPrice));
     }
 
+    /**
+     * Met à jour le prix total.
+     *
+     * @param prix Le nouveau prix.
+     */
     public void updateTotalPrice(Double prix) {
         ticketPriceLabel.setText(String.valueOf(prix));
     }
 
-
+    /**
+     * Analyse la valeur du champ de texte.
+     *
+     * @param text Le texte à analyser.
+     * @return La valeur analysée.
+     */
     private int parseTextFieldValue(String text) {
         try {
             return Integer.parseInt(text);

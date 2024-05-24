@@ -28,6 +28,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Classe FilmViewController qui gère l'affichage des films.
+ */
 public class FilmViewController implements Initializable {
     @FXML
     public FlowPane flowPane;
@@ -37,18 +40,39 @@ public class FilmViewController implements Initializable {
 
     private goToScheduleListener listener;
 
+    /**
+     * Constructeur par défaut de FilmViewController.
+     */
     public FilmViewController() {
     }
+
+    /**
+     * Définit le contrôleur de film.
+     *
+     * @param filmController Le contrôleur de film à définir.
+     */
     public void setFilmController(FilmController filmController) {
         this.filmController = filmController;
     }
 
-
+    /**
+     * Initialise le contrôleur.
+     *
+     * @param url L'URL à utiliser pour l'initialisation.
+     * @param resourceBundle Les ressources à utiliser pour l'initialisation.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
+    /**
+     * Affiche les films.
+     *
+     * @param films La liste des films à afficher.
+     * @throws MalformedURLException Si l'URL du film est mal formée.
+     * @throws URISyntaxException Si l'URI du film est mal formée.
+     */
     public void displayFilms(List<Film> films) throws MalformedURLException, URISyntaxException {
         flowPane.getChildren().clear();
         for (Film film : films) {
@@ -94,13 +118,9 @@ public class FilmViewController implements Initializable {
                 }
             });
 
-
-
-
             String actualText = text.getText();
             String finalText = actualText + "\n" + "\n" + "Durée : " + film.getDuration() ;
             text.setText(finalText);
-
 
             StackPane stackPane = new StackPane(FrontImage, backImage, text, button);
             StackPane.setAlignment(button, Pos.BOTTOM_CENTER);
@@ -111,6 +131,13 @@ public class FilmViewController implements Initializable {
 
     }
 
+    /**
+     * Ouvre la page de programmation.
+     *
+     * @param film Le film pour lequel ouvrir la page de programmation.
+     * @throws IOException Si une erreur d'entrée/sortie se produit.
+     * @throws URISyntaxException Si l'URI du film est mal formée.
+     */
     private void openSchedulePage(Film film) throws IOException, URISyntaxException {
         if (listener != null){
             listener.openSchedulePage(film);
@@ -118,16 +145,30 @@ public class FilmViewController implements Initializable {
 
     }
 
+    /**
+     * Définit le listener pour aller à la programmation.
+     *
+     * @param listener Le listener à définir.
+     */
     public void setListener (goToScheduleListener listener){
         this.listener = listener;
     }
 
+    /**
+     * Interface pour le listener pour aller à la programmation.
+     */
     public interface goToScheduleListener{
         void openSchedulePage(Film film) throws IOException, URISyntaxException;
     }
 
-
-
+    /**
+     * Réalise une transition pour faire pivoter l'image lorsque la souris entre dans la zone du film.
+     *
+     * @param fromImageView L'image actuelle.
+     * @param toPane        L'image à afficher.
+     * @param text          Le texte à afficher.
+     * @param button        Le bouton à afficher.
+     */
     private void flipImage(ImageView fromImageView, ImageView toPane, Text text, Button button) {
         // Transition de mise à l'échelle pour l'image sortante
         ScaleTransition scaleOut = new ScaleTransition(Duration.seconds(0.25), fromImageView);
@@ -220,12 +261,17 @@ public class FilmViewController implements Initializable {
         }
     }
 
-    public void displayTiquets(List<Tickets> tiquets) {
+    /**
+     * Affiche les tickets vendus pour chaque film.
+     *
+     * @param tickets La liste des tickets vendus.
+     */
+    public void displayTickets(List<Tickets> tickets) {
         menu.getItems().clear();
-        for (Tickets tiquet : tiquets) {
+        for (Tickets ticket : tickets) {
 
                 // Construction du texte du menu avec le titre du film
-                String menuText = tiquet.getNumberOfTickets() + "x Tiquet vendu pour le film " + tiquet.getFilmName() + " à la salle " + tiquet.getRoom() + " à " + tiquet.getHour() + " pour un prix de " + tiquet.getPrice() + "€";
+                String menuText = ticket.getNumberOfTickets() + "x Tiquet vendu pour le film " + ticket.getFilmName() + " à la salle " + ticket.getRoom() + " à " + ticket.getHour() + " pour un prix de " + ticket.getPrice() + "€";
                 MenuItem menuItem = new MenuItem(menuText);
                 menu.getItems().add(menuItem);
 

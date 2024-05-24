@@ -126,9 +126,9 @@ public class CentralServer {
          */
         private void sendTickets() {
             TicketsDb ticketsDb = new TicketsDb();
-            List<Tickets> tiquets = ticketsDb.getAllTiquets();
+            List<Tickets> tickets = ticketsDb.getAllTickets();
             try {
-                out.writeObject(tiquets);
+                out.writeObject(tickets);
                 out.flush();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -195,7 +195,7 @@ public class CentralServer {
             if(response.equals("PaymentAccepted")){
                 FilmDb filmDb = new FilmDb();
                 Film film=filmDb.getFilmById(FilmId);
-                createNewTiquet(FilmId, numberOfTickets,room,hour, finalAmount, numberOfChildTickets, numberOfSeniorTickets, numberOfAdultTickets, film.getTitle());
+                createNewTicket(FilmId, numberOfTickets,room,hour, finalAmount, numberOfChildTickets, numberOfSeniorTickets, numberOfAdultTickets, film.getTitle());
                 updateRemainingTickets(FilmId,room, numberOfTickets);
             }
 
@@ -265,7 +265,7 @@ public class CentralServer {
          * @param nombreDeTiquetAdulte Le nombre de tickets pour adultes achetés.
          * @param nomFilm Le nom du film pour lequel le ticket est acheté.
          */
-        private static void createNewTiquet(int filmId, int nombreDeTiquet, int salle, String heure, double prix, int nombreDeTiquetEnfant, int nombreDeTiquetSenior, int nombreDeTiquetAdulte, String nomFilm) {
+        private static void createNewTicket(int filmId, int nombreDeTiquet, int salle, String heure, double prix, int nombreDeTiquetEnfant, int nombreDeTiquetSenior, int nombreDeTiquetAdulte, String nomFilm) {
             TicketsDb ticketsDb = new TicketsDb();
             Tickets newTicket = new Tickets();
             newTicket.setFilmId(filmId);
@@ -278,7 +278,7 @@ public class CentralServer {
             newTicket.setNumberOfAdultTickets(nombreDeTiquetAdulte);
             newTicket.setFilmName(nomFilm);
 
-            ticketsDb.insertTiquet(newTicket);
+            ticketsDb.insertTickets(newTicket);
             System.out.println("Nouveau tiquet créé avec succès.");
         }
 

@@ -1,12 +1,14 @@
 package com.helha.java.q2.cinephile.patternFactory;
+
 /**
- * Interface defining a payment method.
+ * Interface PaymentMethod qui définit une méthode de paiement.
  */
 public interface PaymentMethod {
+
     /**
-     * Performs a payment transaction with the given amount.
+     * Méthode pour effectuer un paiement.
      *
-     * @param amount The amount to be paid.
+     * @param amount Le montant à payer.
      */
     void pay(double amount);
 }

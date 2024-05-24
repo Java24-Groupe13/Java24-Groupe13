@@ -44,10 +44,10 @@ public class FilmDb {
                 String hourAvailable = resultSet.getString("HeureDisponible");
                 String beginning = resultSet.getString("Debut");
                 String end = resultSet.getString("Fin");
-                int remainingRoom1Tickets = resultSet.getInt("TiquetsRestantsSalle1");
+                int remainingRoom1Tickets = resultSet.getInt("TicketsRestantsSalle1");
                 int id = resultSet.getInt("id");
-                int remainingRoom2Tickets = resultSet.getInt("TiquetsRestantsSalle2");
-                int remainingRoom3Tickets = resultSet.getInt("TiquetsRestantsSalle3");
+                int remainingRoom2Tickets = resultSet.getInt("TicketsRestantsSalle2");
+                int remainingRoom3Tickets = resultSet.getInt("TicketsRestantsSalle3");
 
                 films.add(new Film(title, synopsis, duration, trailer, picture, releaseDate, dayAvailable,
                         hourAvailable, beginning, end, remainingRoom1Tickets, id, remainingRoom2Tickets, remainingRoom3Tickets));
@@ -109,10 +109,10 @@ public class FilmDb {
                 resultSet.getString("HeureDisponible"),
                 resultSet.getString("Debut"),
                 resultSet.getString("Fin"),
-                resultSet.getInt("TiquetsRestantsSalle1"),
+                resultSet.getInt("TicketsRestantsSalle1"),
                 resultSet.getInt("id"),
-                resultSet.getInt("TiquetsRestantsSalle2"),
-                resultSet.getInt("TiquetsRestantsSalle3")
+                resultSet.getInt("TicketsRestantsSalle2"),
+                resultSet.getInt("TicketsRestantsSalle3")
         );
         return film;
     }
