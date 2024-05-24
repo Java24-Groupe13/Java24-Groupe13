@@ -2,18 +2,13 @@ package com.helha.java.q2.cinephile.Views;
 
 import com.helha.java.q2.cinephile.Controllers.FilmController;
 import com.helha.java.q2.cinephile.Models.Film;
-import com.helha.java.q2.cinephile.Models.FilmDb;
-import com.helha.java.q2.cinephile.Models.Tiquet;
-import com.helha.java.q2.cinephile.Models.TiquetDb;
+import com.helha.java.q2.cinephile.Models.Tickets;
 import javafx.animation.Interpolator;
 import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -24,7 +19,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -58,7 +52,7 @@ public class FilmViewController implements Initializable {
     public void displayFilms(List<Film> films) throws MalformedURLException, URISyntaxException {
         flowPane.getChildren().clear();
         for (Film film : films) {
-            ImageView FrontImage = new ImageView(new Image(film.getImage()));
+            ImageView FrontImage = new ImageView(new Image(film.getPicture()));
             FrontImage.setFitWidth(200);
             FrontImage.setFitHeight(300);
             Rectangle clip = new Rectangle(200, 300);
@@ -76,11 +70,11 @@ public class FilmViewController implements Initializable {
             FrontImage.setClip(clip);
             backImage.setClip(clip2);
 
-            Text texte = new Text(film.getTitre());
-            texte.setStyle(" -fx-font-weight: bold;");
-            texte.setOpacity(0);
-            texte.setFont(Font.font(texte.getFont().getName(), 10));
-            splitTextIfNeeded(texte, film.getTitre());
+            Text text = new Text(film.getTitle());
+            text.setStyle(" -fx-font-weight: bold;");
+            text.setOpacity(0);
+            text.setFont(Font.font(text.getFont().getName(), 10));
+            splitTextIfNeeded(text, film.getTitle());
 
             Button button = new Button("Reserver");
             button.setOpacity(0);
@@ -103,15 +97,15 @@ public class FilmViewController implements Initializable {
 
 
 
-            String texteActuel = texte.getText();
-            String finaltexte = texteActuel + "\n" + "\n" + "Durée : " + film.getDuree() ;
-            texte.setText(finaltexte);
+            String actualText = text.getText();
+            String finalText = actualText + "\n" + "\n" + "Durée : " + film.getDuration() ;
+            text.setText(finalText);
 
 
-            StackPane stackPane = new StackPane(FrontImage, backImage, texte, button);
+            StackPane stackPane = new StackPane(FrontImage, backImage, text, button);
             StackPane.setAlignment(button, Pos.BOTTOM_CENTER);
-            stackPane.setOnMouseEntered(event -> flipImage(FrontImage, backImage, texte, button)); // Utilisation de la nouvelle fonction flipImage
-            stackPane.setOnMouseExited(event -> flipBackImage(backImage, FrontImage, texte, button)); // Utilisation de la nouvelle fonction flipImageBack
+            stackPane.setOnMouseEntered(event -> flipImage(FrontImage, backImage, text, button)); // Utilisation de la nouvelle fonction flipImage
+            stackPane.setOnMouseExited(event -> flipBackImage(backImage, FrontImage, text, button)); // Utilisation de la nouvelle fonction flipImageBack
             flowPane.getChildren().add(stackPane);
         }
 
@@ -134,7 +128,7 @@ public class FilmViewController implements Initializable {
 
 
 
-    private void flipImage(ImageView fromImageView, ImageView toPane, Text texte, Button button) {
+    private void flipImage(ImageView fromImageView, ImageView toPane, Text text, Button button) {
         // Transition de mise à l'échelle pour l'image sortante
         ScaleTransition scaleOut = new ScaleTransition(Duration.seconds(0.25), fromImageView);
         scaleOut.setToX(0);
@@ -145,7 +139,7 @@ public class FilmViewController implements Initializable {
         scaleIn.setToX(1);
         scaleIn.setInterpolator(Interpolator.EASE_BOTH);
 
-        ScaleTransition scaleTextIn = new ScaleTransition(Duration.seconds(0.25), texte);
+        ScaleTransition scaleTextIn = new ScaleTransition(Duration.seconds(0.25), text);
         scaleTextIn.setToX(1.5); // Ajustez la valeur pour modifier l'effet d'agrandissement
         scaleTextIn.setToY(1.5); // Ajustez la valeur pour modifier l'effet d'agrandissement
         scaleTextIn.setInterpolator(Interpolator.EASE_BOTH);
@@ -158,7 +152,7 @@ public class FilmViewController implements Initializable {
         scaleOut.setOnFinished(event -> {
             fromImageView.setOpacity(0);
             toPane.setOpacity(1);
-            texte.setOpacity(1);
+            text.setOpacity(1);
             button.setOpacity(1);
             scaleIn.play();
             scaleTextIn.play();
@@ -226,12 +220,12 @@ public class FilmViewController implements Initializable {
         }
     }
 
-    public void displayTiquets(List<Tiquet> tiquets) {
+    public void displayTiquets(List<Tickets> tiquets) {
         menu.getItems().clear();
-        for (Tiquet tiquet : tiquets) {
+        for (Tickets tiquet : tiquets) {
 
                 // Construction du texte du menu avec le titre du film
-                String menuText = tiquet.getNombreDeTiquet() + "x Tiquet vendu pour le film " + tiquet.getNomFilm() + " à la salle " + tiquet.getSalle() + " à " + tiquet.getHeure() + " pour un prix de " + tiquet.getPrix() + "€";
+                String menuText = tiquet.getNumberOfTickets() + "x Tiquet vendu pour le film " + tiquet.getFilmName() + " à la salle " + tiquet.getRoom() + " à " + tiquet.getHour() + " pour un prix de " + tiquet.getPrice() + "€";
                 MenuItem menuItem = new MenuItem(menuText);
                 menu.getItems().add(menuItem);
 

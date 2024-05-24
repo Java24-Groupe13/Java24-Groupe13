@@ -34,23 +34,23 @@ public class FilmDb {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM Films");
 
             while (resultSet.next()) {
-                String titre = resultSet.getString("Titre");
+                String title = resultSet.getString("Titre");
                 String synopsis = resultSet.getString("Synopsis");
-                String duree = resultSet.getString("Duree");
-                String bandeAnnonce = resultSet.getString("BandeAnnonce");
-                String image = resultSet.getString("Image");
-                String dateSortie = resultSet.getString("DateSortie");
-                String jourDisponible = resultSet.getString("JourDisponible");
-                String heureDisponible = resultSet.getString("HeureDisponible");
-                String debut = resultSet.getString("Debut");
-                String fin = resultSet.getString("Fin");
-                int tiquetsRestantsSalle1 = resultSet.getInt("TiquetsRestantsSalle1");
+                String duration = resultSet.getString("Duree");
+                String trailer = resultSet.getString("BandeAnnonce");
+                String picture = resultSet.getString("Image");
+                String releaseDate = resultSet.getString("DateSortie");
+                String dayAvailable = resultSet.getString("JourDisponible");
+                String hourAvailable = resultSet.getString("HeureDisponible");
+                String beginning = resultSet.getString("Debut");
+                String end = resultSet.getString("Fin");
+                int remainingRoom1Tickets = resultSet.getInt("TiquetsRestantsSalle1");
                 int id = resultSet.getInt("id");
-                int tiquetsRestantsSalle2 = resultSet.getInt("TiquetsRestantsSalle2");
-                int tiquetsRestantsSalle3 = resultSet.getInt("TiquetsRestantsSalle3");
+                int remainingRoom2Tickets = resultSet.getInt("TiquetsRestantsSalle2");
+                int remainingRoom3Tickets = resultSet.getInt("TiquetsRestantsSalle3");
 
-                films.add(new Film(titre, synopsis, duree, bandeAnnonce, image, dateSortie, jourDisponible,
-                        heureDisponible, debut, fin, tiquetsRestantsSalle1, id, tiquetsRestantsSalle2, tiquetsRestantsSalle3));
+                films.add(new Film(title, synopsis, duration, trailer, picture, releaseDate, dayAvailable,
+                        hourAvailable, beginning, end, remainingRoom1Tickets, id, remainingRoom2Tickets, remainingRoom3Tickets));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -128,19 +128,19 @@ public class FilmDb {
         try {
             String query = "UPDATE Films SET Titre = ?, Synopsis = ?, Duree = ?, BandeAnnonce = ?, Image = ?, DateSortie = ?, JourDisponible = ?, HeureDisponible = ?, Debut = ?, Fin = ?, TiquetsRestantsSalle1 = ?, TiquetsRestantsSalle2 = ?, TiquetsRestantsSalle3 = ? WHERE id = ?";
             preparedStatement = conn.prepareStatement(query);
-            preparedStatement.setString(1, film.getTitre());
-            preparedStatement.setString(2, film.getTexte());
-            preparedStatement.setString(3, film.getDuree());
-            preparedStatement.setString(4, film.getBandeAnnonce());
-            preparedStatement.setString(5, film.getImage());
-            preparedStatement.setString(6, film.getDateSortie());
-            preparedStatement.setString(7, film.getJourDisponible());
-            preparedStatement.setString(8, film.getHeureDisponible());
-            preparedStatement.setString(9, film.getDebut());
-            preparedStatement.setString(10, film.getFin());
-            preparedStatement.setInt(11, film.getTiquetsRestantsSalle1());
-            preparedStatement.setInt(12, film.getTiquetsRestantsSalle2());
-            preparedStatement.setInt(13, film.getTiquetsRestantsSalle3());
+            preparedStatement.setString(1, film.getTitle());
+            preparedStatement.setString(2, film.getText());
+            preparedStatement.setString(3, film.getDuration());
+            preparedStatement.setString(4, film.getTrailer());
+            preparedStatement.setString(5, film.getPicture());
+            preparedStatement.setString(6, film.getReleasedate());
+            preparedStatement.setString(7, film.getDayAvailable());
+            preparedStatement.setString(8, film.getHourAvailable());
+            preparedStatement.setString(9, film.getStart());
+            preparedStatement.setString(10, film.getEnd());
+            preparedStatement.setInt(11, film.getRemainingticketsRoom1());
+            preparedStatement.setInt(12, film.getRemainingticketsRoom2());
+            preparedStatement.setInt(13, film.getRemainingticketsRoom3());
             preparedStatement.setInt(14, film.getId());
 
             preparedStatement.executeUpdate();

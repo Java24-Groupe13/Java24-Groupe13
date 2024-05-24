@@ -13,6 +13,7 @@ module com.helha.java.q2.cinephile {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
+    requires jdk.compiler;
     opens com.helha.java.q2.cinephile.Controllers to javafx.fxml;
     opens com.helha.java.q2.cinephile.Views to javafx.fxml;
 

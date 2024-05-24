@@ -2,8 +2,8 @@ package com.helha.java.q2.cinephile.Controllers;
 
 import com.helha.java.q2.cinephile.Models.Film;
 import com.helha.java.q2.cinephile.Models.FilmDb;
-import com.helha.java.q2.cinephile.Models.Tiquet;
-import com.helha.java.q2.cinephile.Models.TiquetDb;
+import com.helha.java.q2.cinephile.Models.Tickets;
+import com.helha.java.q2.cinephile.Models.TicketsDb;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -23,11 +23,10 @@ public class CentralServer {
      * La liste des clients connectés au serveur.
      */
     private static List<ClientHandler> clients = new CopyOnWriteArrayList<>();
-
-    static int NombreTiquets;
-    static int NombreDeTiquetEnfant;
-    static int NombreDeTiquetAdulte;
-    static int NombreDeTiquetSenior;
+    static int numberOfTickets;
+    static int numberOfChildTickets;
+    static int numberOfAdultTickets;
+    static int numberOfSeniorTickets;
     static int FilmId;
     static int room;
     static String hour;
@@ -85,7 +84,7 @@ public class CentralServer {
                             System.out.println("reponse envoyer au main");
 
                         } else if (command.equals("GET_TIQUETS")) {
-                            sendTiquets();
+                            sendTickets();
                             System.out.println("Films sent to the client");
                         }
                     }
@@ -125,9 +124,9 @@ public class CentralServer {
         /**
          * Méthode pour envoyer la liste des tickets à un client.
          */
-        private void sendTiquets() {
-            TiquetDb tiquetDb = new TiquetDb();
-            List<Tiquet> tiquets = tiquetDb.getAllTiquets();
+        private void sendTickets() {
+            TicketsDb ticketsDb = new TicketsDb();
+            List<Tickets> tiquets = ticketsDb.getAllTiquets();
             try {
                 out.writeObject(tiquets);
                 out.flush();
@@ -144,11 +143,11 @@ public class CentralServer {
         private void sendPaymentToTerminal(String command) {
             String[] parts = command.split(" ");
             double amount = Double.parseDouble(parts[1]);
-            NombreTiquets = Integer.parseInt(parts[2]);
+            numberOfTickets = Integer.parseInt(parts[2]);
             FilmId = Integer.parseInt(parts[3]);
-            NombreDeTiquetEnfant= Integer.parseInt(parts[4]);
-            NombreDeTiquetAdulte = Integer.parseInt(parts[5]);
-            NombreDeTiquetSenior = Integer.parseInt(parts[6]);
+            numberOfChildTickets = Integer.parseInt(parts[4]);
+            numberOfAdultTickets = Integer.parseInt(parts[5]);
+            numberOfSeniorTickets = Integer.parseInt(parts[6]);
             room = Integer.parseInt(parts[7]);
             hour = parts[8];
 
@@ -191,13 +190,13 @@ public class CentralServer {
                    finalAmount = finalAmount * 0.9;
                }
             }
-            System.out.println("Nombre tiquet: " + NombreTiquets);
+            System.out.println("Nombre tiquet: " + numberOfTickets);
             System.out.println("FilmId: " + FilmId);
             if(response.equals("PaymentAccepted")){
                 FilmDb filmDb = new FilmDb();
                 Film film=filmDb.getFilmById(FilmId);
-                createNewTiquet(FilmId, NombreTiquets,room,hour, finalAmount,NombreDeTiquetEnfant, NombreDeTiquetSenior, NombreDeTiquetAdulte, film.getTitre());
-                updateTiquetsRestants(FilmId,room,NombreTiquets);
+                createNewTiquet(FilmId, numberOfTickets,room,hour, finalAmount, numberOfChildTickets, numberOfSeniorTickets, numberOfAdultTickets, film.getTitle());
+                updateRemainingTickets(FilmId,room, numberOfTickets);
             }
 
             // Envoyer la réponse à tous les clients sauf à celui-ci
@@ -267,19 +266,19 @@ public class CentralServer {
          * @param nomFilm Le nom du film pour lequel le ticket est acheté.
          */
         private static void createNewTiquet(int filmId, int nombreDeTiquet, int salle, String heure, double prix, int nombreDeTiquetEnfant, int nombreDeTiquetSenior, int nombreDeTiquetAdulte, String nomFilm) {
-            TiquetDb tiquetDb = new TiquetDb();
-            Tiquet newTiquet = new Tiquet();
-            newTiquet.setFilmId(filmId);
-            newTiquet.setNombreDeTiquet(nombreDeTiquet);
-            newTiquet.setSalle(salle);
-            newTiquet.setHeure(heure);
-            newTiquet.setPrix(String.valueOf(prix));
-            newTiquet.setNombreDeTiquetEnfant(nombreDeTiquetEnfant);
-            newTiquet.setNombreDeTiquetSenior(nombreDeTiquetSenior);
-            newTiquet.setNombreDeTiquetAdulte(nombreDeTiquetAdulte);
-            newTiquet.setNomFilm(nomFilm);
+            TicketsDb ticketsDb = new TicketsDb();
+            Tickets newTicket = new Tickets();
+            newTicket.setFilmId(filmId);
+            newTicket.setNumberOfTickets(nombreDeTiquet);
+            newTicket.setRoom(salle);
+            newTicket.setHour(heure);
+            newTicket.setPrice(String.valueOf(prix));
+            newTicket.setNumberOfChildrenTickets(nombreDeTiquetEnfant);
+            newTicket.setNumberOfSeniorTickets(nombreDeTiquetSenior);
+            newTicket.setNumberOfAdultTickets(nombreDeTiquetAdulte);
+            newTicket.setFilmName(nomFilm);
 
-            tiquetDb.insertTiquet(newTiquet);
+            ticketsDb.insertTiquet(newTicket);
             System.out.println("Nouveau tiquet créé avec succès.");
         }
 
@@ -287,28 +286,28 @@ public class CentralServer {
          * Méthode pour mettre à jour le nombre de tickets restants pour un film spécifique dans une salle spécifique.
          *
          * @param filmId L'ID du film pour lequel le nombre de tickets restants doit être mis à jour.
-         * @param salle Le numéro de la salle où le film est projeté.
-         * @param nombreDeTiquetAchetes Le nombre de tickets achetés pour le film.
+         * @param room Le numéro de la salle où le film est projeté.
+         * @param numberOfBuyTickets Le nombre de tickets achetés pour le film.
          */
-        private static void updateTiquetsRestants(int filmId, int salle, int nombreDeTiquetAchetes) {
+        private static void updateRemainingTickets(int filmId, int room, int numberOfBuyTickets) {
             FilmDb filmDb = new FilmDb();
             try {
                 // Récupérer les informations actuelles sur les tiquets restants pour la salle choisie
                 Film film = filmDb.getFilmById(filmId);
 
                 // Mettre à jour les tiquets restants dans la salle choisie
-                switch (salle) {
+                switch (room) {
                     case 1:
-                        System.out.println("salle: 1"+film.getTitre()+nombreDeTiquetAchetes);
-                        film.setTiquetsRestantsSalle1(film.getTiquetsRestantsSalle1() - nombreDeTiquetAchetes);
+                        System.out.println("salle: 1"+film.getTitle()+numberOfBuyTickets);
+                        film.setRemainingticketsRoom1(film.getRemainingticketsRoom1() - numberOfBuyTickets);
                         break;
                     case 2:
-                        System.out.println("salle: 2"+film.getTitre()+nombreDeTiquetAchetes);
-                        film.setTiquetsRestantsSalle2(film.getTiquetsRestantsSalle2() - nombreDeTiquetAchetes);
+                        System.out.println("salle: 2"+film.getTitle()+numberOfBuyTickets);
+                        film.setRemainingticketsRoom2(film.getRemainingticketsRoom2() - numberOfBuyTickets);
                         break;
                     case 3:
-                        System.out.println("salle: 3"+film.getTitre()+nombreDeTiquetAchetes);
-                        film.setTiquetsRestantsSalle3(film.getTiquetsRestantsSalle3() - nombreDeTiquetAchetes);
+                        System.out.println("salle: 3"+film.getTitle()+numberOfBuyTickets);
+                        film.setRemainingticketsRoom3(film.getRemainingticketsRoom3() - numberOfBuyTickets);
                         break;
                     default:
                         System.out.println("Salle inconnue.");
@@ -317,7 +316,7 @@ public class CentralServer {
 
                 // Mettre à jour les informations dans la base de données
                 filmDb.updateFilm(film);
-                System.out.println("Mise à jour des tiquets restants pour la salle " + salle + " effectuée avec succès.");
+                System.out.println("Mise à jour des tiquets restants pour la salle " + room + " effectuée avec succès.");
             } catch (SQLException e) {
                 e.printStackTrace();
             }

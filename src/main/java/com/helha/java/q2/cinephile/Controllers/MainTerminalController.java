@@ -119,7 +119,7 @@ public class MainTerminalController extends Application {
                         Platform.runLater(() -> {
                             notifyPrimaryStage();
 
-                            bancontactViewController.setMontant(finalAmount);
+                            bancontactViewController.setAmount(finalAmount);
                         });
                     }
                 }
@@ -162,7 +162,7 @@ public class MainTerminalController extends Application {
             System.out.println("Sending payment response: " + response );
             out.writeObject("RESEND_PAYMENTRESPONSE " +response + " " + finalAmount + " "+ code);
             out.flush();
-            bancontactViewController.reSetMontant();
+            bancontactViewController.reSetAmount();
         } catch (IOException e) {
             e.printStackTrace();
         }

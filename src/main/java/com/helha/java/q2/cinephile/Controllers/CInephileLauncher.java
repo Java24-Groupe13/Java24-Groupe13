@@ -9,8 +9,8 @@ import java.net.URISyntaxException;
 /**
  * Classe MainCinephileController qui lance l'application.
  */
-public class CinephileLauncher extends Application {
 
+public class CInephileLauncher extends Application {
     /**
      * Méthode principale qui lance l'application.
      *

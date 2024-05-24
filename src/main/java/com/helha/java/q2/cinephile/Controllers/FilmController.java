@@ -1,9 +1,7 @@
 package com.helha.java.q2.cinephile.Controllers;
 
 import com.helha.java.q2.cinephile.Models.Film;
-import com.helha.java.q2.cinephile.Models.FilmDb;
-import com.helha.java.q2.cinephile.Models.Tiquet;
-import com.helha.java.q2.cinephile.Models.TiquetDb;
+import com.helha.java.q2.cinephile.Models.Tickets;
 import com.helha.java.q2.cinephile.Views.FilmViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +11,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -115,10 +112,23 @@ public class FilmController {
         try {
             out.writeObject("GET_TIQUETS");
             out.flush();
-            List<Tiquet> tiquets = null;
-            tiquets = (List<Tiquet>) in.readObject();
+            List<Tickets> tiquets = null;
+            tiquets = (List<Tickets>) in.readObject();
             filmView.displayTiquets(tiquets);
             System.out.println(tiquets.size());
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void reloadData(String command) {
+        try {
+            out.writeObject("GET_DATA");
+            out.flush();
+            String[] parts = command.split(" ");
+            List<Tickets> tiquets = null;
+
+            tiquets = (List<Tickets>) in.readObject();
+            filmView.displayTiquets(tiquets);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
