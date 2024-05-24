@@ -22,6 +22,10 @@ public class Tickets implements Serializable {
         return filmId;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void setFilmId(int filmId) {
         this.filmId = filmId;
     }

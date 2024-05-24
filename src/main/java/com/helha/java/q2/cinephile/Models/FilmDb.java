@@ -11,6 +11,9 @@ import java.util.List;
 public class FilmDb {
     private Connection conn;
 
+    public FilmDb(Connection conn) {
+        this.conn = conn;
+    }
     /**
      * Constructeur de la classe FilmDb. Initialise la connexion à la base de données.
      */

@@ -112,5 +112,21 @@ public class CheckoutController {
             e.printStackTrace();
         }
     }
+
+    public int getChildTicket() {
+        return checkoutViewController.getChildTicket();
+    }
+
+    public int getSeniorTicket() {
+        return checkoutViewController.getSeniorTicket();
+    }
+
+    public int getAdultTicket() {
+        return checkoutViewController.getAdultTicket();
+    }
+
+    public int getTotalTicketsChosen() {
+        return checkoutViewController.getTotalTicketsChosen();
+    }
 }
 
