@@ -11,9 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
- * Contrôleur pour la vue de la page de paiement.
- */
+
 public class CheckoutViewController {
 
     @FXML

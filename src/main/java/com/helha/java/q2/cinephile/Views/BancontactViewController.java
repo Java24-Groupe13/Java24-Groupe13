@@ -6,10 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import java.io.PrintWriter;
-import java.net.Socket;
-import java.util.concurrent.CountDownLatch;
-
 public class BancontactViewController {
 
     @FXML
@@ -27,46 +23,46 @@ public class BancontactViewController {
     @FXML
     private TextField promoCodeTextField;
 
-    private Double prix;
+    private Double price;
 
     @FXML
     private void initialize() {
         promoCodeTextField.setOnKeyReleased(event -> {
-            prix = Double.valueOf(montantLabel.getText().substring(0, montantLabel.getText().length() - 1));
+            price = Double.valueOf(montantLabel.getText().substring(0, montantLabel.getText().length() - 1));
             OnCodeEnter(promoCodeTextField.getText());
         });
 
         acceptButton.setOnAction(event -> {
-            prix = Double.valueOf(montantLabel.getText().substring(0, montantLabel.getText().length() - 1));
-            OnAccepted( prix);
+            price = Double.valueOf(montantLabel.getText().substring(0, montantLabel.getText().length() - 1));
+            OnAccepted(price);
         });
 
         rejectButton.setOnAction(event -> {
-            prix = Double.valueOf(montantLabel.getText().substring(0, montantLabel.getText().length() - 1));
-            OnRejected(prix);
+            price = Double.valueOf(montantLabel.getText().substring(0, montantLabel.getText().length() - 1));
+            OnRejected(price);
         });
     }
 
-    public void setMontant(double montant) {
+    public void setAmount(double amount) {
         Platform.runLater(() -> {
-            montantLabel.setText(String.valueOf(montant));
+            montantLabel.setText(String.valueOf(amount));
         });
     }
-    public void reSetMontant() {
+    public void reSetAmount() {
         Platform.runLater(() -> {
             montantLabel.setText(null);
         });
     }
 
 
-    public void OnAccepted(Double prix) {
+    public void OnAccepted(Double price) {
         if (buttonListener != null) {
-            buttonListener.OnAccepted(prix);
+            buttonListener.OnAccepted(price);
         }
     }
-    public void OnRejected(Double prix) {
+    public void OnRejected(Double price) {
         if (buttonListener != null) {
-            buttonListener.OnRejected(prix);
+            buttonListener.OnRejected(price);
         }
     }
 
@@ -84,8 +80,8 @@ public class BancontactViewController {
         this.buttonListener = buttonListener;
     }
     public interface Blistener{
-        void OnAccepted( Double prix);
-        void OnRejected( Double prix);
+        void OnAccepted( Double price);
+        void OnRejected( Double price);
     }
 
     public interface Listener {

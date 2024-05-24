@@ -3,110 +3,110 @@ package com.helha.java.q2.cinephile.Models;
 import java.io.Serializable;
 
 public class Film implements Serializable {
-    private static final long serialVersionUID = 1L;
-    private String titre;
-    private String texte;
-    private String duree;
-    private String bandeAnnonce;
-    private String image;
-    private String dateSortie;
-    private String jourDisponible;
-    private String heureDisponible;
-    private String debut;
-    private String fin;
-    private int tiquetsRestantsSalle1;
+
+    private String title;
+    private String text;
+    private String duration;
+    private String trailer;
+    private String picture;
+    private String releasedate;
+    private String dayAvailable;
+    private String hourAvailable;
+    private String start;
+    private String end;
+    private int RemainingticketsRoom1;
     private int id;
-    private int tiquetsRestantsSalle2;
-    private int tiquetsRestantsSalle3;
+    private int RemainingticketsRoom2;
+    private int RemainingticketsRoom3;
 
     // Constructeur
-    public Film(String titre, String texte, String duree, String bandeAnnonce, String image, String dateSortie,
-                String jourDisponible, String heureDisponible, String debut, String fin, int tiquetsRestantsSalle1, int id,
-                int tiquetsRestantsSalle2, int tiquetsRestantsSalle3) {
-        this.titre = titre;
-        this.texte = texte;
-        this.duree = duree;
-        this.bandeAnnonce = bandeAnnonce;
-        this.image = image;
-        this.dateSortie = dateSortie;
-        this.jourDisponible = jourDisponible;
-        this.heureDisponible = heureDisponible;
-        this.debut = debut;
-        this.fin = fin;
-        this.tiquetsRestantsSalle1 = tiquetsRestantsSalle1;
+    public Film(String title, String text, String duration, String trailer, String picture, String releasedate,
+                String jourDisponible, String heureDisponible, String debut, String fin, int RemainingticketsRoom1, int id,
+                int RemainingticketsRoom2, int RemainingticketsRoom3) {
+        this.title = title;
+        this.text = text;
+        this.duration = duration;
+        this.trailer = trailer;
+        this.picture = picture;
+        this.releasedate = releasedate;
+        this.dayAvailable = jourDisponible;
+        this.hourAvailable = heureDisponible;
+        this.start = debut;
+        this.end = fin;
+        this.RemainingticketsRoom1 = RemainingticketsRoom1;
         this.id = id;
-        this.tiquetsRestantsSalle2 = tiquetsRestantsSalle2;
-        this.tiquetsRestantsSalle3 = tiquetsRestantsSalle3;
+        this.RemainingticketsRoom2 = RemainingticketsRoom2;
+        this.RemainingticketsRoom3 = RemainingticketsRoom3;
     }
 
     // Getters
-    public String getTitre() {
-        return titre;
+    public String getTitle() {
+        return title;
     }
 
-    public String getTexte() {
-        return texte;
+    public String getText() {
+        return text;
     }
 
-    public String getDuree() {
-        return duree;
+    public String getDuration() {
+        return duration;
     }
 
-    public String getBandeAnnonce() {
-        return bandeAnnonce;
+    public String getTrailer() {
+        return trailer;
     }
 
-    public String getImage() {
-        return image;
+    public String getPicture() {
+        return picture;
     }
 
-    public String getDateSortie() {
-        return dateSortie;
+    public String getReleasedate() {
+        return releasedate;
     }
 
-    public String getJourDisponible() {
-        return jourDisponible;
+    public String getDayAvailable() {
+        return dayAvailable;
     }
 
-    public String getHeureDisponible() {
-        return heureDisponible;
+    public String getHourAvailable() {
+        return hourAvailable;
     }
 
-    public String getDebut() {
-        return debut;
+    public String getStart() {
+        return start;
     }
 
-    public String getFin() {
-        return fin;
+    public String getEnd() {
+        return end;
     }
 
-    public int getTiquetsRestantsSalle1() {
-        return tiquetsRestantsSalle1;
+    public int getRemainingticketsRoom1() {
+        return RemainingticketsRoom1;
     }
 
     public int getId() {
         return id;
     }
 
-    public int getTiquetsRestantsSalle2() {
-        return tiquetsRestantsSalle2;
+    public int getRemainingticketsRoom2() {
+        return RemainingticketsRoom2;
     }
 
-    public int getTiquetsRestantsSalle3() {
-        return tiquetsRestantsSalle3;
+    public int getRemainingticketsRoom3() {
+        return RemainingticketsRoom3;
     }
 
 
 
-    public void setTiquetsRestantsSalle1(int tiquetsRestantsSalle1) {
-        this.tiquetsRestantsSalle1 = tiquetsRestantsSalle1;
+    public void setRemainingticketsRoom1(int remainingticketsRoom1) {
+        this.RemainingticketsRoom1 = remainingticketsRoom1;
     }
 
-    public void setTiquetsRestantsSalle2(int tiquetsRestantsSalle2) {
-        this.tiquetsRestantsSalle2 = tiquetsRestantsSalle2;
+    public void setRemainingticketsRoom2(int remainingticketsRoom2) {
+        this.RemainingticketsRoom2 = remainingticketsRoom2;
     }
 
-    public void setTiquetsRestantsSalle3(int tiquetsRestantsSalle3) {
-        this.tiquetsRestantsSalle3 = tiquetsRestantsSalle3;
+    public void setRemainingticketsRoom3(int remainingticketsRoom3) {
+        this.RemainingticketsRoom3 = remainingticketsRoom3;
     }
 }

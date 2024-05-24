@@ -1,9 +1,6 @@
 package com.helha.java.q2.cinephile.Controllers;
 
 import com.helha.java.q2.cinephile.Models.Film;
-import com.helha.java.q2.cinephile.Models.FilmDb;
-import com.helha.java.q2.cinephile.Models.Tiquet;
-import com.helha.java.q2.cinephile.Models.TiquetDb;
 import com.helha.java.q2.cinephile.Views.CheckoutViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,7 +9,6 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Socket;
-import java.sql.SQLException;
 
 public class CheckoutController {
     static CheckoutViewController checkoutViewController;

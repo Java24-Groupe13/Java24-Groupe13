@@ -13,9 +13,7 @@ public abstract class PaymentMethodFactory {
     public static PaymentMethod createPaymentMethod(String type) {
         if (type.equals("Bancontact")) {
             return new BancontactPaymentMethod();
-        } else if (type.equals("PayPal")) {
-            return new PayPalPaymentMethod();
-        } else if (type.equals("CreditCard")) {
+        }  else if (type.equals("CreditCard")) {
             return new CreditCardPaymentMethod();
         }
         throw new IllegalArgumentException("Invalid payment method type");

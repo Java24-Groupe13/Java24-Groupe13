@@ -1,7 +1,5 @@
 package com.helha.java.q2.cinephile.patternFactory;
-/**
- * Concrete implementation of the Credit Card payment method.
- */
+
 public class CreditCardPaymentMethod implements PaymentMethod {
     /**
      * {@inheritDoc}

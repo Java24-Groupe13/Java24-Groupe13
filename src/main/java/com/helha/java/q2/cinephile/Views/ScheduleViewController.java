@@ -6,12 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 public class ScheduleViewController {
-
 
     @FXML
     private ToggleButton room1Button;
@@ -25,11 +21,8 @@ public class ScheduleViewController {
     @FXML
     private Label moviesynopsis;
 
-
     @FXML
     private Label movieduration;
-
-
 
     @FXML
     private Label movietitle;
@@ -52,14 +45,13 @@ public class ScheduleViewController {
     @FXML
     private Label ticketsRoom3;
 
-
-
     /**
      * Initialise le contrôleur.
      */
     @FXML
     private void initialize() {
         buyticketbtn.setOnAction(event -> openCheckoutPage());
+        buyticketbtn.setDisable(true);  // Disable the button initially
         room1Button.setOnAction(this::handleRoomButtonAction);
         room2Button.setOnAction(this::handleRoomButtonAction);
         room3Button.setOnAction(this::handleRoomButtonAction);
@@ -90,6 +82,12 @@ public class ScheduleViewController {
             room1Button.setStyle(selectedButton == room1Button ? "-fx-background-color: green; -fx-background-radius: 20; -fx-text-fill: white;" : "-fx-background-color: #aab0ad; -fx-background-radius: 20;");
             room2Button.setStyle(selectedButton == room2Button ? "-fx-background-color: green; -fx-background-radius: 20; -fx-text-fill: white;" : "-fx-background-color: #aab0ad; -fx-background-radius: 20;");
             room3Button.setStyle(selectedButton == room3Button ? "-fx-background-color: green; -fx-background-radius: 20; -fx-text-fill: white;" : "-fx-background-color: #aab0ad; -fx-background-radius: 20;");
+
+            // Enable the buy ticket button if a room is selected
+            buyticketbtn.setDisable(false);
+        } else {
+            // Disable the buy ticket button if no room is selected
+            buyticketbtn.setDisable(true);
         }
     }
 
@@ -99,29 +97,20 @@ public class ScheduleViewController {
      * @param film Le film à afficher.
      */
     public void setFilm(Film film) {
-        moviesynopsis.setText(film.getTexte());
-        movietitle.setText(film.getTitre());
-        movieduration.setText(film.getDuree());
+        moviesynopsis.setText(film.getText());
+        movietitle.setText(film.getTitle());
+        movieduration.setText(film.getDuration());
         afficherTicketsRestants(
-                film.getTiquetsRestantsSalle1(),
-                film.getTiquetsRestantsSalle2(),
-                film.getTiquetsRestantsSalle3()
+                film.getRemainingticketsRoom1(),
+                film.getRemainingticketsRoom2(),
+                film.getRemainingticketsRoom3()
         );
     }
 
-
-    /**
-     * Gère l'action de retour en arrière vers la vue précédente.
-     */
-
-    /**
-     * Ouvre la page de paiement pour acheter des billets.
-     */
     private void openCheckoutPage() {
         if (listener != null) {
-            listener.openCheckoutPage(selectedRoom,selectedHour);
+            listener.openCheckoutPage(selectedRoom, selectedHour);
         }
-
     }
 
     public void setListener(NavListener listener) {
@@ -129,34 +118,7 @@ public class ScheduleViewController {
     }
 
     public interface NavListener {
-
-
         void openCheckoutPage(String selectedRoom, String selectedHour);
-    }
-
-
-    /**
-     * Affiche le synopsis du film dans une boîte de dialogue.
-     *
-     *  L'événement de clic sur le bouton "View Movie Details".
-     */
-
-
-
-    private String formatTextWithLineBreaks(String text, int maxLineLength) {
-        StringBuilder formatted = new StringBuilder();
-        int lineLength = 0;
-
-        for (String word : text.split(" ")) {
-            if (lineLength + word.length() > maxLineLength) {
-                formatted.append("\n");
-                lineLength = 0;
-            }
-            formatted.append(word).append(" ");
-            lineLength += word.length() + 1; // Adding 1 for the space
-        }
-
-        return formatted.toString().trim();
     }
 
     private void afficherTicketsRestants(int ticketsRoom1Count, int ticketsRoom2Count, int ticketsRoom3Count) {
@@ -165,5 +127,6 @@ public class ScheduleViewController {
         ticketsRoom3.setText("Tickets restants : " + ticketsRoom3Count);
     }
 }
+
 
 
