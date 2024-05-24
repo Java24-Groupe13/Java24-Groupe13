@@ -11,10 +11,19 @@ import java.net.Socket;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-
+/**
+ * Classe CentralServer qui gère la communication avec les clients.
+ */
 public class CentralServer {
+    /**
+     * Le port sur lequel le serveur écoute.
+     */
     private static final int PORT = 12345;
+    /**
+     * La liste des clients connectés au serveur.
+     */
     private static List<ClientHandler> clients = new CopyOnWriteArrayList<>();
+
     static int NombreTiquets;
     static int NombreDeTiquetEnfant;
     static int NombreDeTiquetAdulte;
@@ -22,7 +31,9 @@ public class CentralServer {
     static int FilmId;
     static int room;
     static String hour;
-
+    /**
+     * Méthode principale qui démarre le serveur et attend les connexions des clients.
+     */
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
             System.out.println("Central server started. Waiting for clients...");
@@ -37,12 +48,20 @@ public class CentralServer {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Classe interne ClientHandler qui gère la communication avec un client spécifique.
+     */
     private static class ClientHandler implements Runnable {
         private Socket clientSocket;
         private ObjectInputStream in;
         private ObjectOutputStream out;
 
+        /**
+         * Constructeur de la classe ClientHandler.
+         *
+         * @param clientSocket le socket du client
+         * @throws IOException si une erreur d'entrée/sortie se produit
+         */
         public ClientHandler(Socket clientSocket) throws IOException {
             this.clientSocket = clientSocket;
             this.out = new ObjectOutputStream(clientSocket.getOutputStream());
@@ -89,6 +108,9 @@ public class CentralServer {
             }
         }
 
+        /**
+         * Méthode pour envoyer la liste des films à un client.
+         */
         private void sendFilms() {
             FilmDb filmDb = new FilmDb();
             List<Film> films = filmDb.getAllFilms();
@@ -99,6 +121,10 @@ public class CentralServer {
                 e.printStackTrace();
             }
         }
+
+        /**
+         * Méthode pour envoyer la liste des tickets à un client.
+         */
         private void sendTiquets() {
             TiquetDb tiquetDb = new TiquetDb();
             List<Tiquet> tiquets = tiquetDb.getAllTiquets();
@@ -110,6 +136,11 @@ public class CentralServer {
             }
         }
 
+        /**
+         * Méthode pour envoyer les détails du paiement au terminal principal.
+         *
+         * @param command La commande reçue du client.
+         */
         private void sendPaymentToTerminal(String command) {
             String[] parts = command.split(" ");
             double amount = Double.parseDouble(parts[1]);
@@ -138,6 +169,11 @@ public class CentralServer {
             }
         }
 
+        /**
+         * Méthode pour envoyer la réponse du terminal principal au client principal.
+         *
+         * @param command La commande reçue du terminal principal.
+         */
         private void sendPaymentToMain(String command) throws IOException, SQLException {
 
             System.out.println("send to main: " + command);
@@ -174,7 +210,12 @@ public class CentralServer {
             }
         }
 
-
+        /**
+         * Méthode pour lire le code promotionnel à partir d'un fichier.
+         *
+         * @return Le code promotionnel.
+         * @throws IOException Si une erreur d'entrée/sortie se produit.
+         */
         public static String readPromoCode() throws IOException {
             String filePath = "src/main/resources/com/helha/java/q2/cinephile/promotionCode.txt";
             StringBuilder content = new StringBuilder();
@@ -188,7 +229,12 @@ public class CentralServer {
         }
 
 
-
+        /**
+         * Méthode pour comparer le code promotionnel entré par l'utilisateur avec le code promotionnel dans le fichier.
+         *
+         * @param codeEntered Le code promotionnel entré par l'utilisateur.
+         * @return Vrai si le code promotionnel est valide, faux sinon.
+         */
         public static boolean comparePromoCode(String codeEntered) {
             try {
                 String fileContent = readPromoCode();
@@ -207,8 +253,19 @@ public class CentralServer {
             return false;
         }
 
-
-
+        /**
+         * Méthode pour créer un nouveau ticket.
+         *
+         * @param filmId L'ID du film pour lequel le ticket est acheté.
+         * @param nombreDeTiquet Le nombre de tickets achetés.
+         * @param salle Le numéro de la salle où le film est projeté.
+         * @param heure L'heure de la projection du film.
+         * @param prix Le prix total des tickets.
+         * @param nombreDeTiquetEnfant Le nombre de tickets pour enfants achetés.
+         * @param nombreDeTiquetSenior Le nombre de tickets pour seniors achetés.
+         * @param nombreDeTiquetAdulte Le nombre de tickets pour adultes achetés.
+         * @param nomFilm Le nom du film pour lequel le ticket est acheté.
+         */
         private static void createNewTiquet(int filmId, int nombreDeTiquet, int salle, String heure, double prix, int nombreDeTiquetEnfant, int nombreDeTiquetSenior, int nombreDeTiquetAdulte, String nomFilm) {
             TiquetDb tiquetDb = new TiquetDb();
             Tiquet newTiquet = new Tiquet();
@@ -226,8 +283,13 @@ public class CentralServer {
             System.out.println("Nouveau tiquet créé avec succès.");
         }
 
-
-
+        /**
+         * Méthode pour mettre à jour le nombre de tickets restants pour un film spécifique dans une salle spécifique.
+         *
+         * @param filmId L'ID du film pour lequel le nombre de tickets restants doit être mis à jour.
+         * @param salle Le numéro de la salle où le film est projeté.
+         * @param nombreDeTiquetAchetes Le nombre de tickets achetés pour le film.
+         */
         private static void updateTiquetsRestants(int filmId, int salle, int nombreDeTiquetAchetes) {
             FilmDb filmDb = new FilmDb();
             try {

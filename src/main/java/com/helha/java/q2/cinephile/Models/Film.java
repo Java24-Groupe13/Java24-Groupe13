@@ -2,6 +2,9 @@ package com.helha.java.q2.cinephile.Models;
 
 import java.io.Serializable;
 
+/**
+ * Classe Film qui représente un film dans l'application.
+ */
 public class Film implements Serializable {
     private static final long serialVersionUID = 1L;
     private String titre;
@@ -19,7 +22,9 @@ public class Film implements Serializable {
     private int tiquetsRestantsSalle2;
     private int tiquetsRestantsSalle3;
 
-    // Constructeur
+    /**
+     * Constructeur de la classe Film.
+     */
     public Film(String titre, String texte, String duree, String bandeAnnonce, String image, String dateSortie,
                 String jourDisponible, String heureDisponible, String debut, String fin, int tiquetsRestantsSalle1, int id,
                 int tiquetsRestantsSalle2, int tiquetsRestantsSalle3) {

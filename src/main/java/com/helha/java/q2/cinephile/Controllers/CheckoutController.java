@@ -14,9 +14,23 @@ import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
 
+/**
+ * Classe CheckoutController qui gère le processus de paiement.
+ */
 public class CheckoutController {
+    /**
+     * Instance de CheckoutViewController.
+     */
     static CheckoutViewController checkoutViewController;
 
+    /**
+     * Méthode pour ouvrir la page de paiement.
+     *
+     * @param film Le film sélectionné.
+     * @param room La salle sélectionnée.
+     * @param hour L'heure sélectionnée.
+     * @param shedulePageStage Le stage de la page de programmation.
+     */
     public static void openCheckout(Film film, String room, String hour,Stage shedulePageStage) {
         try {
             FXMLLoader loader = new FXMLLoader(CheckoutController.class.getResource("/com/helha/java/q2/cinephile/checkout.fxml"));
@@ -39,8 +53,16 @@ public class CheckoutController {
         }
     }
 
-
-
+    /**
+     * Méthode pour démarrer le client et envoyer le montant à payer au serveur.
+     *
+     * @param prix Le prix total à payer.
+     * @param film Le film sélectionné.
+     * @param room La salle sélectionnée.
+     * @param hour L'heure sélectionnée.
+     * @param checkoutPageStage Le stage de la page de paiement.
+     * @param shedulePageStage Le stage de la page de programmation.
+     */
     private static void startClient(Double prix, Film film, String room, String hour, Stage checkoutPageStage, Stage shedulePageStage) {
         String serverAddress = "127.0.0.1"; // Adresse IP du serveur (localhost)
         int serverPort = 12345; // Port utilisé par le serveur

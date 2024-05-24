@@ -11,9 +11,18 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+/**
+ * Classe ScheduleController qui gère la logique de l'application pour les horaires des films.
+ */
 public class ScheduleController {
+    /**
+     * Instance de ScheduleViewController.
+     */
     private ScheduleViewController scheduleView;
 
+    /**
+     * Constructeur de ScheduleController.
+     */
     public ScheduleController() {
 
     }

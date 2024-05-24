@@ -7,26 +7,26 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 /**
- * Classe principale de l'application Cinephile.
+ * Classe MainCinephileController qui lance l'application.
  */
-public class MainCinephileController extends Application {
+public class CinephileLauncher extends Application {
 
     /**
-     * Méthode principale appelée au démarrage de l'application.
+     * Méthode principale qui lance l'application.
      *
-     * @param primaryStage La scène principale de l'application.
-     */
-
-
-    /**
-     * Méthode principale du programme.
-     *
-     * @param args Les arguments passés lors du lancement du programme.
+     * @param args Les arguments de la ligne de commande.
      */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Méthode pour démarrer l'application.
+     *
+     * @param primaryStage Le stage principal.
+     * @throws IOException Si une erreur d'entrée/sortie se produit.
+     * @throws URISyntaxException Si une erreur de syntaxe d'URI se produit.
+     */
     @Override
     public void start(Stage primaryStage) throws IOException, URISyntaxException {
         FilmController filmController = new FilmController();

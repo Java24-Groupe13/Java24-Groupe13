@@ -2,6 +2,9 @@ package com.helha.java.q2.cinephile.Models;
 
 import java.io.Serializable;
 
+/**
+ * Classe Tiquet qui représente un ticket de cinéma dans l'application.
+ */
 public class Tiquet implements Serializable {
     private int filmId;
     private int id;

@@ -53,6 +53,11 @@ public class TiquetDb {
         return tiquets;
     }
 
+    /**
+     * Insère un nouveau ticket dans la base de données.
+     *
+     * @param tiquet Le ticket à insérer.
+     */
     public void insertTiquet(Tiquet tiquet) {
         String query = "INSERT INTO Tiquets (FilmId, NombreDeTiquet, Salle, Heure, Prix, NombreDeTiquetEnfant, NombreDeTiquetSenior, NombreDeTiquetAdulte, NomFilm) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 

@@ -13,16 +13,46 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+/**
+ * Classe MainTerminalController qui gère l'application du terminal principal.
+ */
 public class MainTerminalController extends Application {
 
+    /**
+     * Instance de BancontactViewController.
+     */
     private static BancontactViewController bancontactViewController;
+
+    /**
+     * Socket pour la communication avec le serveur.
+     */
     private static Socket socket;
+
+    /**
+     * Flux de sortie pour envoyer des objets au serveur.
+     */
     private static ObjectOutputStream out;
+
+    /**
+     * Flux d'entrée pour recevoir des objets du serveur.
+     */
     private static ObjectInputStream in;
+
+    /**
+     * Code pour le paiement.
+     */
     private String code;
+
+    /**
+     * Stage principal de l'application.
+     */
     private static Stage stage;
 
-
+    /**
+     * Méthode principale qui lance l'application.
+     *
+     * @param args Les arguments de la ligne de commande.
+     */
     public static void main(String[] args) {
         // Connect to the central server
         new Thread(MainTerminalController::connectToServer).start();
@@ -31,7 +61,12 @@ public class MainTerminalController extends Application {
         launch(args);
     }
 
-
+    /**
+     * Méthode pour démarrer l'application.
+     *
+     * @param primaryStage Le stage principal.
+     * @throws IOException Si une erreur d'entrée/sortie se produit.
+     */
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/helha/java/q2/cinephile/bancontact.fxml"));
@@ -59,8 +94,9 @@ public class MainTerminalController extends Application {
         primaryStage.show();
     }
 
-
-
+    /**
+     * Méthode pour se connecter au serveur.
+     */
     private static void connectToServer() {
         String serverAddress = "127.0.0.1"; // Server IP address (localhost)
         int serverPort = 12345; // Server port
@@ -93,7 +129,9 @@ public class MainTerminalController extends Application {
         }
     }
 
-
+    /**
+     * Méthode pour notifier le stage principal.
+     */
     private static void notifyPrimaryStage() {
         // Bring primary stage to front and request focus
         stage.setAlwaysOnTop(true);  // Force it to the front
@@ -101,14 +139,23 @@ public class MainTerminalController extends Application {
         stage.requestFocus();
         stage.setAlwaysOnTop(false);  // Reset the always-on-top status
     }
+
+    /**
+     * Méthode pour envoyer le stage principal en arrière-plan.
+     */
     private static void sendPrimaryStageToBack() {
         // Send primary stage to back
         stage.setAlwaysOnTop(false); // Ensure it is not always on top
         stage.toBack(); // Send it to the back
     }
 
-
-
+    /**
+     * Méthode pour envoyer la réponse de paiement.
+     *
+     * @param response La réponse à envoyer.
+     * @param finalAmount Le montant final à payer.
+     * @param code Le code pour le paiement.
+     */
     private static void sendPaymentResponse(String response, Double finalAmount, String code) {
         sendPrimaryStageToBack();
         try {

@@ -19,16 +19,42 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 public class FilmController {
+    /**
+     * Instance de FilmViewController.
+     */
     private static FilmViewController filmView;
+
+    /**
+     * Socket pour la communication avec le serveur.
+     */
     private static Socket socket;
+
+    /**
+     * Flux de sortie pour envoyer des objets au serveur.
+     */
     private static ObjectOutputStream out;
+
+    /**
+     * Flux d'entrée pour recevoir des objets du serveur.
+     */
     private static ObjectInputStream in;
 
+    /**
+     * Constructeur de FilmController.
+     */
 
     public FilmController() {
         this.filmView = filmView;
 
     }
+
+    /**
+     * Méthode pour démarrer l'application.
+     *
+     * @param primaryStage Le stage principal.
+     * @throws IOException Si une erreur d'entrée/sortie se produit.
+     * @throws URISyntaxException Si une erreur de syntaxe d'URI se produit.
+     */
     public void start(Stage primaryStage) throws IOException, URISyntaxException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/helha/java/q2/cinephile/FilmView.fxml"));
         Parent root = loader.load();
@@ -51,6 +77,10 @@ public class FilmController {
         loadFilms();
         loadTiquets();
     }
+
+    /**
+     * Méthode pour se connecter au serveur.
+     */
     static void connectToServer() {
         try {
             socket = new Socket("localhost", 12345);
@@ -60,6 +90,10 @@ public class FilmController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Méthode pour charger les films depuis le serveur.
+     */
     static void loadFilms() {
         try {
             out.writeObject("GET_FILMS");
@@ -74,6 +108,9 @@ public class FilmController {
         }
     }
 
+    /**
+     * Méthode pour charger les tickets depuis le serveur.
+     */
     public static void loadTiquets() {
         try {
             out.writeObject("GET_TIQUETS");
@@ -82,19 +119,6 @@ public class FilmController {
             tiquets = (List<Tiquet>) in.readObject();
             filmView.displayTiquets(tiquets);
             System.out.println(tiquets.size());
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-    public static void reloadData(String command) {
-        try {
-            out.writeObject("GET_DATA");
-            out.flush();
-            String[] parts = command.split(" ");
-            List<Tiquet> tiquets = null;
-
-            tiquets = (List<Tiquet>) in.readObject();
-            filmView.displayTiquets(tiquets);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
