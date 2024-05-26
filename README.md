@@ -26,4 +26,4 @@ Pour lancer l'application, vous devez d'abord démarrer le serveur et le termina
 
 ## Explication du projet
 
-L'explication du projet se trouve sur cette vidéo : ~~à venir~~
+L'explication du projet se trouve sur cette vidéo : https://youtu.be/6RG-3MrPjh0
